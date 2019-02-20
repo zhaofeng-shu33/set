@@ -64,6 +64,24 @@ namespace stl {
         }
         return true;
     }
+    Set Set::Complement(std::size_t n) const {
+        Set::iterator max_value_it = end();
+        max_value_it--;
+        std::size_t range_n = std::max(n, *max_value_it + 1);
+        Set a;
+        Set::iterator b_it = begin();
+        for (std::size_t i = 0; i <= *max_value_it; i++) {
+            if (*b_it == i) {
+                b_it++;
+            }
+            else {
+                a.AddElement(i);
+            }
+        }
+        for (std::size_t i = *max_value_it + 1; i < range_n; i++)
+            a.AddElement(i);
+        return a;
+    }
 
     std::ostream& operator << (std::ostream& stream, const Set& X) {
         stream << "{";
@@ -79,6 +97,27 @@ namespace stl {
         return stream;
     }
     bool operator==(const Set& a, const Set& b) {
-        return a.IsSubSet(b) && b.IsSubSet(a);
+        if (a.Cardinality() != b.Cardinality())
+            return false;
+        Set::iterator a_it = a.begin(), b_it = b.begin();
+        while (a_it != a.end()) {
+            if (*a_it != *b_it)
+                return false;
+            a_it++;
+            b_it++;
+        }
+        return true;
+    }
+    bool operator!=(const Set& a, const Set& b) {
+        if (a.Cardinality() != b.Cardinality())
+            return true;
+        Set::iterator a_it = a.begin(), b_it = b.begin();
+        while (a_it != a.end()) {
+            if (*a_it != *b_it)
+                return true;
+            a_it++;
+            b_it++;
+        }
+        return false;
     }
 }

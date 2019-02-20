@@ -32,6 +32,15 @@ TEST(SET, Operation) {
     EXPECT_EQ(A_CUP_B, C);
     Set A_CAP_B = A.Intersection(B);
     EXPECT_EQ(A_CAP_B, D);
+    EXPECT_TRUE(A != C);
     std::cout << A_CUP_B << std::endl;
+}
+TEST(Set, Complement) {
+    Set A(std::string("0101"));
+    Set B(std::string("1010"));
+    Set C(std::string("10101"));
+
+    EXPECT_EQ(A.Complement(4), B);
+    EXPECT_EQ(A.Complement(5), C);
 }
 }

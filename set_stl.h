@@ -27,10 +27,11 @@ public:
     iterator end();
     std::set<element_type>::const_iterator begin() const;
     std::set<element_type>::const_iterator end() const;
-    
+    Set Complement(std::size_t n) const;
     friend std::ostream& operator << (std::ostream&, const Set&);
 private:
     std::set<element_type> s;
 };
 bool operator==(const Set& a, const Set& b);
+bool operator!=(const Set& a, const Set& b);
 }
