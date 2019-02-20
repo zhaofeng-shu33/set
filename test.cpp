@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include <iostream>
 #include "set_stl.h"
-namespace stl{
+using Set = stl::CSet;
 TEST(SET, GETSET) {
     Set s;
     s.AddElement(6);
@@ -43,4 +43,4 @@ TEST(Set, Complement) {
     EXPECT_EQ(A.Complement(4), B);
     EXPECT_EQ(A.Complement(5), C);
 }
-}
+
