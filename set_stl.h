@@ -65,6 +65,7 @@ namespace stl{
         friend bool operator!=(const Set& a, const Set& b) {
             return a.s != b.s;
         }
+
         Set Union(const Set& X) const {
             Set a;
             std::set_union(X.begin(), X.end(), begin(), end(), std::inserter(a, a.begin()));
@@ -75,6 +76,7 @@ namespace stl{
             std::set_intersection(X.begin(), X.end(), begin(), end(), std::inserter(a, a.begin()));
             return a;
         }
+
     private:
         std::set<element_type> s;
     };
@@ -99,6 +101,19 @@ public:
         CSet a;
         std::set_intersection(X.begin(), X.end(), begin(), end(), std::inserter(a, a.begin()));
         return a;
+    }
+    friend bool operator<(const CSet& X, const CSet& Y) {
+        //alphebatical order
+        iterator it_x = X.begin(), it_y = Y.begin();
+        while (it_x != X.end() && it_y != Y.end()) {
+            if (*it_x > *it_y)
+                return false;
+            else if (*it_x < *it_y)
+                return true;
+            it_x++;
+            it_y++;
+        }
+        return false;
     }
 };
 

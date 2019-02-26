@@ -43,4 +43,14 @@ TEST(Set, Complement) {
     EXPECT_EQ(A.Complement(4), B);
     EXPECT_EQ(A.Complement(5), C);
 }
+TEST(Set, TestLess) {
+    Set A(std::string("0111")); // {1, 2, 3}
+    Set B(std::string("01101")); // {1, 2, 4}
+    Set C(std::string("011"));
+    Set D(std::string("0101"));
+    EXPECT_TRUE(A < B);
+    EXPECT_FALSE(A < C);
+    EXPECT_TRUE(A < D);
+    EXPECT_FALSE(A < A);
+}
 
