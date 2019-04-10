@@ -1,8 +1,9 @@
-#pragma once
-#include<set>
-#include<string>
+# pragma once
+#include <set>
+#include <string>
 #include <algorithm>
 #include <iterator>
+#include <iostream>
 namespace stl{
     template <class T>
     class Set {
