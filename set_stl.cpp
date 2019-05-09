@@ -9,6 +9,13 @@ namespace stl {
             }
         }
     }
+	CSet::CSet(std::size_t n, unsigned long val)
+	{
+		for (std::size_t i = 0; i < n; i++) {
+			if ((val >> i & 1) == 1)
+				AddElement(i);
+		}
+	}
     CSet CSet::MakeDense(CSet::element_type n) {
         // use range constructor
         CSet a;

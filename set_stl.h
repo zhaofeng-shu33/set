@@ -89,6 +89,8 @@ class CSet : public Set<std::size_t> {
 public:
     CSet(){}
     CSet(const std::string& str);
+	//! construct a CSet from bitmask of val, for example if val = 14(0b1110), the set is {1,1,1,0}
+	CSet(std::size_t n, unsigned long val);
     //! generate a set $\{0, 1, \dots, n-1\}$
     static CSet MakeDense(element_type n);
     //! generate an empty set, the parameter is not used, reserved for compatibility consideration
