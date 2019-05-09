@@ -34,6 +34,9 @@ public:
     iterator insert(iterator position, const element_type& val) {
         return s.insert(position, val);
     }
+	void clear() {
+		s.clear();
+	}
     iterator begin() {
         return s.begin();
     }

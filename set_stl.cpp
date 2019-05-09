@@ -70,7 +70,8 @@ namespace stl {
 				A_extend = A_extend.Union(*it);
 			}
 		}
-		p.AddElement(A_extend);
+		if(!A_extend.IsEmpty())
+			p.AddElement(A_extend);
 		return p;
 	}
 }

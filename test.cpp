@@ -2,6 +2,7 @@
 #include <iostream>
 #include "set_stl.h"
 using Set = stl::CSet;
+using Partition = stl::Partition;
 TEST(SET, GETSET) {
     Set s;
     s.AddElement(6);
@@ -35,7 +36,7 @@ TEST(SET, Operation) {
     EXPECT_TRUE(A != C);
     std::cout << A_CUP_B << std::endl;
 }
-TEST(Set, Complement) {
+TEST(SET, Complement) {
     Set A(std::string("0101"));
     Set B(std::string("1010"));
     Set C(std::string("10101"));
@@ -43,7 +44,7 @@ TEST(Set, Complement) {
     EXPECT_EQ(A.Complement(4), B);
     EXPECT_EQ(A.Complement(5), C);
 }
-TEST(Set, TestLess) {
+TEST(SET, TestLess) {
     Set A(std::string("0111")); // {1, 2, 3}
     Set B(std::string("01101")); // {1, 2, 4}
     Set C(std::string("011"));
@@ -54,3 +55,17 @@ TEST(Set, TestLess) {
     EXPECT_FALSE(A < A);
 }
 
+TEST(SET, Partition) {
+	Partition a, b, c;
+	a.AddElement(stl::CSet(std::string("101")));
+	a.AddElement(stl::CSet(std::string("01")));
+	b.AddElement(stl::CSet(std::string("01")));
+	b.AddElement(stl::CSet(std::string("101")));
+	EXPECT_EQ(a, b);
+	c = c.expand(stl::CSet());
+	EXPECT_EQ(c.Cardinality(), 0);
+	c = c.expand(stl::CSet(std::string("1")));
+	c = c.expand(stl::CSet(std::string("01")));
+	c = c.expand(stl::CSet(std::string("101")));
+	EXPECT_EQ(a, c);
+}
