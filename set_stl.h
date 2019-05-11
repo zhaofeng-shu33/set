@@ -31,6 +31,10 @@ public:
     void AddElement(element_type i) {
         s.insert(i);
     }
+	void push_back(element_type i) {
+		s.insert(i);
+	}
+
     iterator insert(iterator position, const element_type& val) {
         return s.insert(position, val);
     }

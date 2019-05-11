@@ -1,8 +1,11 @@
 #include <gtest/gtest.h>
 #include <iostream>
+#include <algorithm>
 #include "set_stl.h"
+
 using Set = stl::CSet;
 using Partition = stl::Partition;
+
 TEST(SET, GETSET) {
     Set s;
     s.AddElement(6);
@@ -44,6 +47,7 @@ TEST(SET, Complement) {
     EXPECT_EQ(A.Complement(4), B);
     EXPECT_EQ(A.Complement(5), C);
 }
+
 TEST(SET, TestLess) {
     Set A(std::string("0111")); // {1, 2, 3}
     Set B(std::string("01101")); // {1, 2, 4}
@@ -53,6 +57,15 @@ TEST(SET, TestLess) {
     EXPECT_FALSE(A < C);
     EXPECT_TRUE(A < D);
     EXPECT_FALSE(A < A);
+}
+
+TEST(SET, COPY) {
+	Set A;
+	A.AddElement(1);
+	A.AddElement(2);
+	Set B;
+	std::copy(A.begin(), A.end(), std::back_inserter(B));
+	EXPECT_EQ(A, B);
 }
 
 TEST(SET, Partition) {
