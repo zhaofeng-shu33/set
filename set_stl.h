@@ -12,15 +12,18 @@ public:
     using value_type = element_type;
     typedef typename std::set<element_type>::iterator iterator;
     typedef typename std::set<element_type>::const_iterator const_iterator;
+
     //! empty set
     Set() {}
 
     std::size_t Cardinality() const {
         return s.size();
     }
+
     bool HasElement(element_type i) const {
         return static_cast<bool>(s.count(i));
     }
+
     bool IsSubSet(const Set& X) const {
         for (element_type i : s) {
             if (!X.HasElement(i))
@@ -28,9 +31,11 @@ public:
         }
         return true;
     }
+
     void AddElement(element_type i) {
         s.insert(i);
     }
+
 	void push_back(element_type i) {
 		s.insert(i);
 	}
@@ -38,22 +43,29 @@ public:
     iterator insert(iterator position, const element_type& val) {
         return s.insert(position, val);
     }
+
 	void clear() {
 		s.clear();
 	}
+
     iterator begin() {
         return s.begin();
     }
+
     iterator end() {
         return s.end();
     }
+
     const_iterator begin() const {
         return s.begin();
     }
+
     const_iterator end() const {
         return s.end();
     }
+
     bool IsEmpty() { return s.size() == 0; }
+
     friend std::ostream& operator << (std::ostream& stream, const Set& X) {
         stream << "{";
         std::size_t cnt = 0, limiter = X.Cardinality();
@@ -67,9 +79,11 @@ public:
         stream << "}";
         return stream;
     }
+
     friend bool operator==(const Set& a, const Set& b) {
         return a.s == b.s;
     }
+
     friend bool operator!=(const Set& a, const Set& b) {
         return a.s != b.s;
     }
@@ -79,6 +93,7 @@ public:
         std::set_union(X.begin(), X.end(), begin(), end(), std::inserter(a, a.begin()));
         return a;
     }
+
     Set Intersection(const Set& X) const {
         Set a;
         std::set_intersection(X.begin(), X.end(), begin(), end(), std::inserter(a, a.begin()));
@@ -88,6 +103,7 @@ public:
 private:
     std::set<element_type> s;
 };
+
 //! a thin wrapper around std::set
 class CSet : public Set<std::size_t> {
 public:
@@ -126,6 +142,7 @@ public:
         return false;
     }
 };
+
 class Partition : public stl::Set<stl::CSet> {
 public:
 	static Partition makeFine(int size);
