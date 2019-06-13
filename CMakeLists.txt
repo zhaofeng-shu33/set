@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-option(ENABLE_TESTING "Enable testing" ON)
+option(ENABLE_TESTING "Enable testing" OFF)
 add_library(set_stl set_stl.cpp)
 if(UNIX)
     SET_TARGET_PROPERTIES(set_stl PROPERTIES COMPILE_FLAGS "-fPIC")
