@@ -48,6 +48,20 @@ TEST(SET, Complement) {
     EXPECT_EQ(A.Complement(5), C);
 }
 
+TEST(SET, Difference) {
+	Set A(std::string("0101")); // {1, 3}
+	Set B(std::string("1010")); // {0, 2}
+	Set C(std::string("10101")); // {0, 2, 4}
+	Set D(std::string("0011")); // {2, 3}
+
+	Set A1 = A.Difference(B);
+	EXPECT_EQ(A1, A);
+	Set B1 = C.Difference(B);
+	EXPECT_EQ(B1, Set(std::string("00001")));
+	Set C1 = D.Difference(A);
+	EXPECT_EQ(C1, Set(std::string("001")));
+}
+
 TEST(SET, TestLess) {
     Set A(std::string("0111")); // {1, 2, 3}
     Set B(std::string("01101")); // {1, 2, 4}

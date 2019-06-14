@@ -133,6 +133,11 @@ public:
         std::set_intersection(X.begin(), X.end(), begin(), end(), std::inserter(a, a.begin()));
         return a;
     }
+	CSet Difference(const CSet& X) const {
+		CSet a;
+		std::set_difference(begin(), end(), X.begin(), X.end(), std::inserter(a, a.begin()));
+		return a;
+	}
     friend bool operator<(const CSet& X, const CSet& Y) {
         //alphebatical order
         iterator it_x = X.begin(), it_y = Y.begin();
