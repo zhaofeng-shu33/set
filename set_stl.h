@@ -11,6 +11,7 @@ public:
     using element_type = T;
     using value_type = element_type;
     typedef typename std::set<element_type>::iterator iterator;
+	typedef typename std::set<element_type>::reverse_iterator reverse_iterator;
     typedef typename std::set<element_type>::const_iterator const_iterator;
 
     //! empty set
@@ -51,6 +52,10 @@ public:
     iterator begin() {
         return s.begin();
     }
+
+	reverse_iterator rbegin() {
+		return s.rbegin();
+	}
 
     iterator end() {
         return s.end();

@@ -59,6 +59,11 @@ TEST(SET, TestLess) {
     EXPECT_FALSE(A < A);
 }
 
+TEST(SET, TestLargest) {
+	Set B(std::string("01101")); // {1, 2, 4}
+	EXPECT_EQ(*B.rbegin(), 4);
+}
+
 TEST(SET, COPY) {
 	Set A;
 	A.AddElement(1);
