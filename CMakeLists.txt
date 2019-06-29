@@ -1,4 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 option(ENABLE_TESTING "Enable testing" OFF)
 option(CODE_COVERAGE "Enable coverage reporting" OFF)
 add_library(set_stl set_stl.cpp)
