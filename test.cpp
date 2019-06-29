@@ -6,6 +6,10 @@
 using Set = stl::CSet;
 using Partition = stl::Partition;
 
+TEST(SET, MakeDense){
+    Set A(std::string("1111"));
+    EXPECT_EQ(A, Set::MakeDense(4));
+}
 TEST(SET, GETSET) {
     Set s;
     s.AddElement(6);
