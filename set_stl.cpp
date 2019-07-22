@@ -9,6 +9,7 @@ namespace stl {
             }
         }
     }
+
 	CSet::CSet(std::size_t n, unsigned long val)
 	{
 		for (std::size_t i = 0; i < n; i++) {
@@ -16,6 +17,7 @@ namespace stl {
 				AddElement(i);
 		}
 	}
+
     CSet CSet::MakeDense(CSet::element_type n) {
         // use range constructor
         CSet a;
@@ -23,12 +25,10 @@ namespace stl {
             a.AddElement(i);
         return a;
     }
+
     CSet CSet::MakeEmpty(element_type n) {
         return CSet();
     }
-   
-   
- 
     
     CSet CSet::GetMembers() const {
         return *this;
@@ -52,6 +52,7 @@ namespace stl {
             a.AddElement(i);
         return a;
     }
+
 	Partition Partition::makeFine(int size) {
 		Partition p;
 		for (int i = 0; i < size; i++) {
@@ -61,11 +62,13 @@ namespace stl {
 		}
 		return p;
 	}
+
 	Partition Partition::makeDense(int size) {
 		Partition p;
 		p.AddElement(stl::CSet::MakeDense(size));
 		return p;
 	}
+    
 	Partition Partition::expand(const stl::CSet& A) {
 		Partition p;
 		stl::CSet A_extend = A;
