@@ -105,3 +105,9 @@ TEST(SET, Partition) {
 	c = c.expand(stl::CSet(std::string("101")));
 	EXPECT_EQ(a, c);
 }
+
+TEST(SET, Constructor) {
+	Set A(3, 0b101);
+	Set B("101");
+	EXPECT_EQ(A, B);
+}
