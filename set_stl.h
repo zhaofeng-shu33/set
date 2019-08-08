@@ -115,6 +115,7 @@ public:
     CSet(){}
     CSet(const std::string& str);
 	//! construct a CSet from bitmask of val, for example if val = 14(0b1110), the set is {1,1,1,0}
+    //! n is the maximal size of the set
 	CSet(std::size_t n, unsigned long val);
     //! generate a set $\{0, 1, \dots, n-1\}$
     static CSet MakeDense(element_type n);
@@ -139,7 +140,7 @@ public:
 		return a;
 	}
     friend bool operator<(const CSet& X, const CSet& Y) {
-        //alphebatical order
+        //alphabetical order
         iterator it_x = X.begin(), it_y = Y.begin();
         while (it_x != X.end() && it_y != Y.end()) {
             if (*it_x > *it_y)
