@@ -9,16 +9,15 @@ class CSet {
 public:
     typedef typename std::list<int>::iterator iterator;
     typedef typename std::list<int>::const_iterator const_iterator;
-    static CSet MakeDense(int n) {
-        CSet new_cset = CSet(n);
-        for (int i = 0; i < n; i++)
-            new_cset.AddElement(i);
-        return new_cset;
-    }
+
     //! empty set
-    CSet(int size_n) {
+    CSet(int size_n, bool dense= false) {
         s = new bool[size_n];
-        std::memset(s, 0, size_n * sizeof(bool));
+        if(dense)
+            for (int i = 0; i < size_n; i++)
+                AddElement(i);
+        else
+            std::memset(s, 0, size_n * sizeof(bool));
         size = size_n;
     }
     ~CSet() {

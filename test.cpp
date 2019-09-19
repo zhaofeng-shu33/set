@@ -21,9 +21,8 @@ TEST(SET, iterator_test) {
     ASSERT_EQ(s_it, s.end());
 }
 
-
 TEST(SET, make_dense) {
-    Set a = Set::MakeDense(4);
+    Set a(4, true);
     ASSERT_FALSE(a.IsEmpty());
     ASSERT_EQ(a.Cardinality(), 4);
     ASSERT_TRUE(a.HasElement(0));
@@ -31,6 +30,7 @@ TEST(SET, make_dense) {
     ASSERT_TRUE(a.HasElement(2));
     ASSERT_TRUE(a.HasElement(3));
 }
+
 TEST(SET, Intersection_Empty) {
     Set a(3);
     Set b(3);
@@ -53,7 +53,8 @@ TEST(SET, output_format) {
 
 TEST(Partition, addElement) {
     Partition a;
-    a.AddElement(Set::MakeDense(2));
+    Set s(2, true);
+    a.AddElement(s);
     ASSERT_EQ(a.Cardinality(), 1);
     a.clear();
     ASSERT_EQ(a.Cardinality(), 0);
