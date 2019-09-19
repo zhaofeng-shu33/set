@@ -35,7 +35,7 @@ TEST(SET, Intersection_Empty) {
     Set a(3);
     Set b(3);
     a.AddElement(1);
-    b.AddElement(2);
+    b.AddElement(0);
     ASSERT_TRUE(a.Intersection_Empty(b));
     ASSERT_TRUE(b.Intersection_Empty(a));
     b.AddElement(1);

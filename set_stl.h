@@ -1,5 +1,6 @@
 # pragma once
 #include <string>
+#include <vector>
 #include <list>
 #include <algorithm>
 #include <iterator>
@@ -12,17 +13,13 @@ public:
 
     //! empty set
     CSet(int size_n, bool dense= false) {
-        s = new bool[size_n];
+        s.resize(size_n, dense);
         if(dense)
             for (int i = 0; i < size_n; i++)
                 AddElement(i);
-        else
-            std::memset(s, 0, size_n * sizeof(bool));
         size = size_n;
     }
-    ~CSet() {
-        delete s;
-    }
+
     int Cardinality() const {
         return size;
     }
@@ -66,12 +63,14 @@ public:
             if(X.HasElement(i))
                 stream << i << ", ";
         }
+        if (X.HasElement(X.size - 1))
+            stream << (X.size - 1);
         stream << "}";
         return stream;
     }
 
 private:
-    bool* s;
+    std::vector<bool> s;
     int size;
     std::list<int> value_list;
 };
@@ -84,7 +83,7 @@ public:
 	Partition() {}
 	void expand(stl::CSet& A);
     
-    void AddElement(CSet cset) {
+    void AddElement(const CSet& cset) {
         p_list.push_back(cset);
     }
     void clear() {
