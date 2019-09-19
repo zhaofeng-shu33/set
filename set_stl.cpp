@@ -5,12 +5,11 @@ namespace stl {
         s.resize(size_n, dense);
         if (dense)
             for (int i = 0; i < size_n; i++)
-                AddElement(i);
-        size = size_n;
+                AddElement(i);       
     }
 
     int CSet::Cardinality() const {
-        return size;
+        return value_list.size();
     }
 
     bool CSet::HasElement(int i) const {
@@ -44,16 +43,19 @@ namespace stl {
         }
         return true;
     }
-    bool CSet::IsEmpty() { return size == 0; }
+    bool CSet::IsEmpty() { return value_list.size() == 0; }
 
     std::ostream& operator << (std::ostream & stream, const CSet & X) {
         stream << "{";
-        for (int i = 0; i < X.size - 1; i++) {
-            if (X.HasElement(i))
-                stream << i << ", ";
+        int cnt = 0;
+        int limiter = X.Cardinality();
+        for (CSet::const_iterator it = X.begin(); it != X.end(); it++) {
+            stream << *it;
+            cnt++;
+            if (cnt != limiter) {
+                stream << ", ";
+            }
         }
-        if (X.HasElement(X.size - 1))
-            stream << (X.size - 1);
         stream << "}";
         return stream;
     }

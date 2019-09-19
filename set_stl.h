@@ -29,7 +29,6 @@ public:
 
 private:
     std::vector<bool> s;
-    int size;
     std::list<int> value_list;
 };
 
