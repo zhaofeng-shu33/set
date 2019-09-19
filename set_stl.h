@@ -12,62 +12,20 @@ public:
     typedef typename std::list<int>::const_iterator const_iterator;
 
     //! empty set
-    CSet(int size_n, bool dense= false) {
-        s.resize(size_n, dense);
-        if(dense)
-            for (int i = 0; i < size_n; i++)
-                AddElement(i);
-        size = size_n;
-    }
+    CSet(int size_n, bool dense = false);
 
-    int Cardinality() const {
-        return size;
-    }
+    int Cardinality() const;
 
-    bool HasElement(int i) const {
-        return s[i];       
-    }
-    const_iterator begin() const {
-        return value_list.begin();
-    }
+    bool HasElement(int i) const;
+    const_iterator begin() const;
 
-    const_iterator end() const {
-        return value_list.end();
-    }
-    void AddElement(int i) {
-        s[i] = true;
-        // we assume value_list is sorted
-        value_list.push_back(i);
-    }
+    const_iterator end() const;
+    void AddElement(int i);
     //! return true if this has empty intersection with A
-    bool Intersection_Empty(const stl::CSet& A) {
-        iterator self_element = value_list.begin();
-        const_iterator it = A.begin();
-        while(self_element != value_list.end() && it != A.end()) {
-            if (*self_element > * it) {
-                it++;
-            }
-            else if (*self_element < *it) {
-                self_element++;
-            }
-            else
-                return false;
-        }
-        return true;
-    }
-    bool IsEmpty() { return size == 0; }
+    bool Intersection_Empty(const stl::CSet& A);
+    bool IsEmpty();
 
-    friend std::ostream& operator << (std::ostream& stream, const CSet& X) {
-        stream << "{";
-        for (int i = 0; i < X.size - 1; i++) {
-            if(X.HasElement(i))
-                stream << i << ", ";
-        }
-        if (X.HasElement(X.size - 1))
-            stream << (X.size - 1);
-        stream << "}";
-        return stream;
-    }
+    friend std::ostream& operator << (std::ostream& stream, const CSet& X);
 
 private:
     std::vector<bool> s;
