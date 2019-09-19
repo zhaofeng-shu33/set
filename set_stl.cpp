@@ -1,6 +1,18 @@
 #include "set_stl.h"
 
 namespace stl {
+    void Partition::AddElement(const CSet& cset) {
+        p_list.push_back(cset);
+    }
+    void Partition::clear() {
+        p_list.clear();
+    }
+    int Partition::Cardinality() const {
+        return p_list.size();
+    }
+    Partition::iterator Partition::removeElement(iterator pos) {
+        return p_list.erase(pos);
+    }
     Partition Partition::makeFine(int size) {
         Partition p;
         for (int i = 0; i < size; i++) {

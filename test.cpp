@@ -61,7 +61,23 @@ TEST(Partition, addElement) {
 }
 
 TEST(Partition, expand) {
-
+    Partition a;
+    Set s(5);
+    s.AddElement(1);
+    a.expand(s);
+    Set s2(5);
+    s2.AddElement(2);
+    a.expand(s2);
+    Set s3(5);
+    s3.AddElement(1);
+    s3.AddElement(3);
+    a.expand(s3);
+    ASSERT_EQ(a.Cardinality(), 2);
+    Set s4(5);
+    s4.AddElement(3);
+    s4.AddElement(4);
+    a.expand(s4);
+    ASSERT_EQ(a.Cardinality(), 2);
 }
 
 TEST(Partition, make_fine) {

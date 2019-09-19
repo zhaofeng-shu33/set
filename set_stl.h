@@ -81,22 +81,13 @@ public:
     typedef typename std::list<CSet>::iterator iterator;
 	static Partition makeFine(int size);
 	Partition() {}
-	void expand(stl::CSet& A);
-    
-    void AddElement(const CSet& cset) {
-        p_list.push_back(cset);
-    }
-    void clear() {
-        p_list.clear();
-    }
-    int Cardinality() const {
-        return p_list.size();
-    }
+	void expand(stl::CSet& A);    
+    void AddElement(const CSet& cset);
+    void clear();
+    int Cardinality() const;
     
 private:
-    iterator removeElement(iterator pos) {
-        return p_list.erase(pos);
-    }
+    iterator removeElement(iterator pos);
     std::list<CSet> p_list;
 };
 }
