@@ -2,7 +2,7 @@
 
 namespace stl {
     CSet::CSet(int size_n, bool dense) {
-        s.resize(size_n, dense);
+        s.resize(size_n, false);
         if (dense)
             for (int i = 0; i < size_n; i++)
                 AddElement(i);       
@@ -22,12 +22,22 @@ namespace stl {
     CSet::const_iterator CSet::end() const {
         return value_list.end();
     }
-    void CSet::AddElement(int i) {
-        s[i] = true;
+    void CSet::AddElement(int i, bool check_pos) {
         // we assume value_list is sorted
+        if (s[i])
+            return;
+        s[i] = true;
+        if(check_pos){
+            for (const_iterator it = begin(); it != end(); it++)
+                if (*it > i) {
+                    value_list.insert(it, i);
+                    return;
+                }            
+        }
         value_list.push_back(i);
     }
     //! return true if this has empty intersection with A
+    //! make sure all value_lists are sorted
     bool CSet::Intersection_Empty(const stl::CSet & A) {
         iterator self_element = value_list.begin();
         const_iterator it = A.begin();
@@ -90,7 +100,7 @@ namespace stl {
             }
             else {
                 for (CSet::const_iterator it_inner = it->begin(); it_inner != it->end(); it_inner++)
-                    A.AddElement(*it_inner);
+                    A.AddElement(*it_inner, true);
                 it = removeElement(it);
             }
         }
@@ -103,5 +113,20 @@ namespace stl {
 
     Partition::const_iterator Partition::end() const {
         return p_list.end();
+    }
+
+    std::ostream& operator << (std::ostream& stream, const Partition& P) {
+        stream << "{";
+        int cnt = 0;
+        int limiter = P.Cardinality();
+        for (Partition::const_iterator it = P.begin(); it != P.end(); it++) {
+            stream << *it;
+            cnt++;
+            if (cnt != limiter) {
+                stream << ", ";
+            }
+        }
+        stream << "}";
+        return stream;
     }
 }

@@ -86,6 +86,9 @@ TEST(Partition, expand) {
     ASSERT_TRUE(it->HasElement(4));
     it++;
     ASSERT_EQ(it, a.end());
+    std::stringstream ss;
+    ss << a;
+    ASSERT_EQ(ss.str(), "{{2}, {1, 3, 4}}");
 }
 
 TEST(Partition, make_fine) {

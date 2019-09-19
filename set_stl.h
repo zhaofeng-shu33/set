@@ -20,7 +20,7 @@ public:
     const_iterator begin() const;
 
     const_iterator end() const;
-    void AddElement(int i);
+    void AddElement(int i, bool check_pos = false);
     //! return true if this has empty intersection with A
     bool Intersection_Empty(const stl::CSet& A);
     bool IsEmpty();
@@ -46,6 +46,7 @@ public:
     int Cardinality() const;
     const_iterator begin() const;
     const_iterator end() const;
+    friend std::ostream& operator << (std::ostream& stream, const Partition& P);
 
 private:
     iterator removeElement(iterator pos);
