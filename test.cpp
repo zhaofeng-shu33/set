@@ -78,6 +78,14 @@ TEST(Partition, expand) {
     s4.AddElement(4);
     a.expand(s4);
     ASSERT_EQ(a.Cardinality(), 2);
+    Partition::const_iterator it = a.begin();
+    ASSERT_TRUE(it->HasElement(2));
+    it++;
+    ASSERT_TRUE(it->HasElement(1));
+    ASSERT_TRUE(it->HasElement(3));
+    ASSERT_TRUE(it->HasElement(4));
+    it++;
+    ASSERT_EQ(it, a.end());
 }
 
 TEST(Partition, make_fine) {

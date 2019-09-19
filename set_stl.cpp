@@ -58,6 +58,7 @@ namespace stl {
         return stream;
     }
 
+    Partition::Partition() {}
     void Partition::AddElement(const CSet& cset) {
         p_list.push_back(cset);
     }
@@ -94,4 +95,11 @@ namespace stl {
         if (!A.IsEmpty())
             AddElement(A);        
 	}
+    Partition::const_iterator Partition::begin() const {
+        return p_list.begin();
+    }
+
+    Partition::const_iterator Partition::end() const {
+        return p_list.end();
+    }
 }

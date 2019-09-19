@@ -37,13 +37,17 @@ private:
 class Partition {
 public:
     typedef typename std::list<CSet>::iterator iterator;
+    typedef typename std::list<CSet>::const_iterator const_iterator;
+
 	static Partition makeFine(int size);
-	Partition() {}
+    Partition();
 	void expand(stl::CSet& A);    
     void AddElement(const CSet& cset);
     void clear();
     int Cardinality() const;
-    
+    const_iterator begin() const;
+    const_iterator end() const;
+
 private:
     iterator removeElement(iterator pos);
     std::list<CSet> p_list;
