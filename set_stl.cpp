@@ -19,7 +19,8 @@ namespace stl {
         return value_list.begin();
     }
     void CSet::clear() {
-        s.resize(s.size(), false);
+        for (const_iterator it = begin(); it != end(); it++)
+            s[*it] = false;
         value_list.clear();
     }
     CSet::const_iterator CSet::end() const {
