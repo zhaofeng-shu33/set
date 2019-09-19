@@ -23,6 +23,7 @@ public:
     void AddElement(int i, bool check_pos = false);
     //! return true if this has empty intersection with A
     bool Intersection_Empty(const stl::CSet& A);
+    void Union(const stl::CSet& A);
     bool IsEmpty();
 
     friend std::ostream& operator << (std::ostream& stream, const CSet& X);

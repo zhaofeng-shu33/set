@@ -23,6 +23,18 @@ TEST(SET, iterator_test) {
     ASSERT_EQ(s.Cardinality(), 0);
 }
 
+TEST(SET, test_union) {
+    Set a1(3);
+    Set a2(3);
+    a1.AddElement(1);
+    a2.AddElement(1);
+    a2.AddElement(2);
+    a1.Union(a2);
+    std::stringstream ss;
+    ss << a1;
+    ASSERT_EQ(ss.str(), "{1, 2}");
+}
+
 TEST(SET, make_dense) {
     Set a(4, true);
     ASSERT_FALSE(a.IsEmpty());

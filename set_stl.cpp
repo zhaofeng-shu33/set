@@ -26,6 +26,11 @@ namespace stl {
     CSet::const_iterator CSet::end() const {
         return value_list.end();
     }
+    void CSet::Union(const stl::CSet& A) {
+        for (const_iterator it = A.begin(); it != A.end(); it++) {
+            AddElement(*it, true);
+        }
+    }
     void CSet::AddElement(int i, bool check_pos) {
         // we assume value_list is sorted
         if (s[i])
