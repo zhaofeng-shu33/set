@@ -1,164 +1,104 @@
 # pragma once
-#include <set>
 #include <string>
+#include <list>
 #include <algorithm>
 #include <iterator>
 #include <iostream>
 namespace stl{
-template <class T>
-class Set {
+class CSet {
 public:
-    using element_type = T;
-    using value_type = element_type;
-    typedef typename std::set<element_type>::iterator iterator;
-	typedef typename std::set<element_type>::reverse_iterator reverse_iterator;
-    typedef typename std::set<element_type>::const_iterator const_iterator;
-
+    typedef typename std::list<int>::iterator iterator;
+    typedef typename std::list<int>::const_iterator const_iterator;
+    static CSet MakeDense(int n) {
+        CSet new_cset = CSet(n);
+        for (int i = 0; i < n; i++)
+            new_cset.AddElement(i);
+        return new_cset;
+    }
     //! empty set
-    Set() {}
-
-    std::size_t Cardinality() const {
-        return s.size();
+    CSet(int size_n) {
+        s = new bool[size_n];
+        std::memset(s, 0, size_n * sizeof(bool));
+        size = size_n;
+    }
+    ~CSet() {
+        delete s;
+    }
+    int Cardinality() const {
+        return size;
     }
 
-    bool HasElement(element_type i) const {
-        return static_cast<bool>(s.count(i));
+    bool HasElement(int i) const {
+        return s[i];       
+    }
+    const_iterator begin() const {
+        return value_list.begin();
     }
 
-    bool IsSubSet(const Set& X) const {
-        for (element_type i : s) {
-            if (!X.HasElement(i))
+    const_iterator end() const {
+        return value_list.end();
+    }
+    void AddElement(int i) {
+        s[i] = true;
+        // we assume value_list is sorted
+        value_list.push_back(i);
+    }
+    //! return true if this has empty intersection with A
+    bool Intersection_Empty(const stl::CSet& A) {
+        iterator self_element = value_list.begin();
+        const_iterator it = A.begin();
+        while(self_element != value_list.end() && it != A.end()) {
+            if (*self_element > * it) {
+                it++;
+            }
+            else if (*self_element < *it) {
+                self_element++;
+            }
+            else
                 return false;
         }
         return true;
     }
+    bool IsEmpty() { return size == 0; }
 
-    void AddElement(element_type i) {
-        s.insert(i);
-    }
-
-	void push_back(element_type i) {
-		s.insert(i);
-	}
-
-    iterator insert(iterator position, const element_type& val) {
-        return s.insert(position, val);
-    }
-
-	void clear() {
-		s.clear();
-	}
-
-    iterator begin() {
-        return s.begin();
-    }
-
-	reverse_iterator rbegin() {
-		return s.rbegin();
-	}
-
-    iterator end() {
-        return s.end();
-    }
-
-    const_iterator begin() const {
-        return s.begin();
-    }
-
-    const_iterator end() const {
-        return s.end();
-    }
-
-    bool IsEmpty() { return s.size() == 0; }
-
-    friend std::ostream& operator << (std::ostream& stream, const Set& X) {
+    friend std::ostream& operator << (std::ostream& stream, const CSet& X) {
         stream << "{";
-        std::size_t cnt = 0, limiter = X.Cardinality();
-        for (Set::iterator i = X.begin(); i != X.end(); i++) {
-            stream << *i;
-            cnt++;
-            if (cnt != limiter) {
-                stream << ", ";
-            }
+        for (int i = 0; i < X.size - 1; i++) {
+            if(X.HasElement(i))
+                stream << i << ", ";
         }
         stream << "}";
         return stream;
     }
 
-    friend bool operator==(const Set& a, const Set& b) {
-        return a.s == b.s;
-    }
-
-    friend bool operator!=(const Set& a, const Set& b) {
-        return a.s != b.s;
-    }
-
-    Set Union(const Set& X) const {
-        Set a;
-        std::set_union(X.begin(), X.end(), begin(), end(), std::inserter(a, a.begin()));
-        return a;
-    }
-
-    Set Intersection(const Set& X) const {
-        Set a;
-        std::set_intersection(X.begin(), X.end(), begin(), end(), std::inserter(a, a.begin()));
-        return a;
-    }
-
 private:
-    std::set<element_type> s;
+    bool* s;
+    int size;
+    std::list<int> value_list;
 };
 
-//! a thin wrapper around std::set
-class CSet : public Set<std::size_t> {
-public:
-    CSet(){}
-    CSet(const std::string& str);
-	//! construct a CSet from bitmask of val, for example if val = 14(0b1110), the set is {1,1,1,0}
-    //! n is the maximal size of the set
-	CSet(std::size_t n, unsigned long val);
-    //! generate a set $\{0, 1, \dots, n-1\}$
-    static CSet MakeDense(element_type n);
-    //! generate an empty set, the parameter is not used, reserved for compatibility consideration
-    static CSet MakeEmpty(element_type n);    
-    // return self
-    CSet GetMembers() const;
-    CSet Complement(std::size_t n) const;
-    CSet Union(const CSet& X) const {
-        CSet a;
-        std::set_union(X.begin(), X.end(), begin(), end(), std::inserter(a, a.begin()));
-        return a;
-    }
-    CSet Intersection(const CSet& X) const {
-        CSet a;
-        std::set_intersection(X.begin(), X.end(), begin(), end(), std::inserter(a, a.begin()));
-        return a;
-    }
-	CSet Difference(const CSet& X) const {
-		CSet a;
-		std::set_difference(begin(), end(), X.begin(), X.end(), std::inserter(a, a.begin()));
-		return a;
-	}
-    friend bool operator<(const CSet& X, const CSet& Y) {
-        //alphabetical order
-        iterator it_x = X.begin(), it_y = Y.begin();
-        while (it_x != X.end() && it_y != Y.end()) {
-            if (*it_x > *it_y)
-                return false;
-            else if (*it_x < *it_y)
-                return true;
-            it_x++;
-            it_y++;
-        }
-        return false;
-    }
-};
 
-class Partition : public stl::Set<stl::CSet> {
+class Partition {
 public:
+    typedef typename std::list<CSet>::iterator iterator;
 	static Partition makeFine(int size);
-	static Partition makeDense(int size);
 	Partition() {}
-	Partition expand(const stl::CSet& A);
+	void expand(stl::CSet& A);
+    
+    void AddElement(CSet cset) {
+        p_list.push_back(cset);
+    }
+    void clear() {
+        p_list.clear();
+    }
+    int Cardinality() const {
+        return p_list.size();
+    }
+    
+private:
+    iterator removeElement(iterator pos) {
+        return p_list.erase(pos);
+    }
+    std::list<CSet> p_list;
 };
 }
