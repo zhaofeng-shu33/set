@@ -18,7 +18,10 @@ namespace stl {
     CSet::const_iterator CSet::begin() const {
         return value_list.begin();
     }
-
+    void CSet::clear() {
+        s.resize(s.size(), false);
+        value_list.clear();
+    }
     CSet::const_iterator CSet::end() const {
         return value_list.end();
     }

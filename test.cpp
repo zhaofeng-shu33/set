@@ -19,6 +19,8 @@ TEST(SET, iterator_test) {
     ASSERT_EQ(*s_it, 2);
     s_it++;
     ASSERT_EQ(s_it, s.end());
+    s.clear();
+    ASSERT_EQ(s.Cardinality(), 0);
 }
 
 TEST(SET, make_dense) {

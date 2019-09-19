@@ -18,7 +18,7 @@ public:
 
     bool HasElement(int i) const;
     const_iterator begin() const;
-
+    void clear();
     const_iterator end() const;
     void AddElement(int i, bool check_pos = false);
     //! return true if this has empty intersection with A
